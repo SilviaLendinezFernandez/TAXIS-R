@@ -10,6 +10,17 @@ tail(datos) # Consultamos los últimos datos
 
 #Primero quitamos todas las mayúsculas
 mi.datos2 <- datos
+
+#Eliminamos columnas que consideramos innecesarias para nuestro trabajo
+mi.datos2$Tipo <- NULL
+mi.datos2$Variante <- NULL
+mi.datos2$Fecha <- NULL
+mi.datos2$Fecha.inicio.Régimen.Especial.Eurotaxi <- NULL
+mi.datos2$Fecha.fin.Régimen.Especial.Eurotaxi <- NULL
+
+
+colnames(mi.datos2)
+
 colnames(mi.datos2) <- sapply(colnames(mi.datos2), tolower) 
 
 # Buscamos los . y los sustituimos por _
@@ -31,7 +42,7 @@ colnames(mi.datos2)
 
 
 
-#Cambiamos los tipos
+#CAMBIAMOS LOS TIPOS
 
 #Primero consultamos los tipos 
 sapply(mi.datos2, class)
@@ -40,14 +51,10 @@ mi.datos2$codigo <- as.character(mi.datos2$codigo)
 sapply(mi.datos2$codigo, class)
 
 
-
+#Cambiamos el tipo a la columna de clasificacion
 mi.datos2$clasificacion_medioambiental <- as.ordered(mi.datos2$clasificacion_medioambiental)
-mi.datos2$clasificacion_medioambiental <- factor(mi.datos2$clasificacion_medioambiental, ordered = TRUE, levels= "0", "Eco", "C", "B")
 
 #Cambiamos las fechas que venian tipo factor
-
-mi.datos2$fecha <- strptime(mi.datos2$fecha, "%d/%m/%Y") 
-mi.datos2$fecha
 
 mi.datos2$fecha_matriculacion <- as.POSIXct(mi.datos2$fecha_matriculacion, tz= "CEST", format="%d/%m/%Y") 
 mi.datos2$fecha_matriculacion
@@ -61,13 +68,18 @@ mi.datos2$fecha_inicio_prestacion
 #mi.datos2$fecha_inicio_prestacion <- strptime(mi.datos2$fecha_inicio_prestacion, "%d/%m/%Y") 
 #mi.datos2$fecha_inicio_prestacion
 
-mi.datos2$fecha_inicio_eurotaxi <- strptime(mi.datos2$fecha_inicio_eurotaxi, "%d/%m/%Y") 
-mi.datos2$fecha_inicio_eurotaxi
 
-mi.datos2$fecha_fin_eurotaxi <- strptime(mi.datos2$fecha_fin_eurotaxi, "%d/%m/%Y") 
-mi.datos2$fecha_fin_eurotaxi
 
+#CAMBIAMOS LOS SI Y NO A 0,1
+
+
+
+
+
+#Comprobamos los tipos de las columnas
 sapply(mi.datos2, class)
+
+
 
 
 
