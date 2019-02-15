@@ -1,6 +1,6 @@
 ---
 title: "Datos historicos de flota de taxis en Madrid"
-author: "Alejandro Vaqueiro, Ester Sánchez, Inês Bolaños, Silvia Lendínez"
+author: "Alejandro Vaqueiro, Ester Sanchez, Ines Bolanos, Silvia Lendinez"
 date : 15 febrero 2019
 output:
   html_document:
@@ -15,25 +15,25 @@ output:
 
 Debido a la falta de datos, queremos resaltar que para este trabajo no vamos a utilizar el tema de nuestro TFM.
 
-Hemos utilizado una base de datos sobre la flota de taxis dentro de la ciudad de Madrid. Vamos a usar información como las marcas, el combustible y la cilindrada y potencia de los vehiculos para realizar un análisis exploratorio, teniendo en cuenta las limitaciones del tipo de variables a la hora de hacer gráficos.
+Hemos utilizado una base de datos sobre la flota de taxis dentro de la ciudad de Madrid. Vamos a usar informacion como las marcas, el combustible y la cilindrada y potencia de los vehiculos para realizar un analisis exploratorio, teniendo en cuenta las limitaciones del tipo de variables a la hora de hacer graficos.
 
 El objetivo de nuestro trabajo es aprender a limpiar una base de datos, transformar, visualizar e interpretar las principales variables.
 
 Para ello, en primer lugar, hemos importado el archivo *TaxiFlota.csv.* Luego, hemos realizado la limpieza de datos (cambio de variables, cambiar el nombre de las columnas, eliminar columnas, formato fecha, etc.)
 
-Por último hemos hecho algunas representaciones gráficas con las variables más relevantes.
+Por ultimo hemos hecho algunas representaciones graficas con las variables mas relevantes.
 
 
-# 1. Obtención de los datos
+# 1. Obtencion de los datos
 
-Importación de la base de datos *Taxi Flota* de la base de datos abiertos de Madrid, en formato .csv
+Importacion de la base de datos *Taxi Flota* de la base de datos abiertos de Madrid, en formato .csv
 
 
 ```{r}
 datos <- read.table("TaxiFlota.csv", sep = ";", header = TRUE, stringsAsFactors = FALSE )
 ```
 
-Vemos la dimensión
+Vemos la dimension
 ```{r}
 dim(datos)
 ```
@@ -42,18 +42,18 @@ Mostramos la info de las 5 primeras filas
 head(datos,5)
 ```
 
-Mostramos los últimos datos
+Mostramos los ultimos datos
 ```{r}
 tail(datos)
 ```
 
 # 2. Tratamiento y limpieza
 
-Hemos cambiado el nombre de las columnas para que sean representativos y usables, cambiado el tipo de variables según les corresponda y eliminado variables que no tenían información relevante para nuestro análisis.
+Hemos cambiado el nombre de las columnas para que sean representativos y usables, cambiado el tipo de variables segun les corresponda y eliminado variables que no tenian informacion relevante para nuestro analisis.
 
 ## 1. Renombrar los nombres de las columnas
   
-### 1.1 Cambiar los títulos a minúsculas
+### 1.1 Cambiar los titulos a minusculas
 ```{r}
 colnames(datos) <- sapply(colnames(datos), tolower) 
 colnames(datos)
@@ -71,7 +71,7 @@ colnames(datos) <- iconv(colnames(datos), to='ASCII//TRANSLIT')
 colnames(datos)
 ```
 
-### 1.4. Renombrar manualmente las columnas con nombres más largos
+### 1.4. Renombrar manualmente las columnas con nombres mas largos
 ```{r}
 colnames(datos)[12] <- "numero_plazas"
 colnames(datos)[13] <- "fecha_inicio_prestacion"
@@ -96,8 +96,8 @@ sapply(datos, class)
 - **fecha_matriculacion**: character -> date
 - **marca**: OK
 - **modelo**: OK
-- **tipo**: borrar, aporta poca información
-- **variante**: borrar, aporta poca información
+- **tipo**: borrar, aporta poca informacion
+- **variante**: borrar, aporta poca informacion
 - **clasificacion_medioambiental**: character -> category
 - **combustible**: OK
 - **cilindrada**: OK
@@ -106,9 +106,9 @@ sapply(datos, class)
 - **fecha_inicio**: character -> date
 - **eurotaxi**: OK, cambiar *'si'* y *'no'* por *'0'* y *'1'*
 - **regimen_eurotaxi**: OK, cambiar *'si'* y *'no'* por *'0'* y *'1'*
-- **fecha_inicio_eurotaxi**: borrar, aporta poca información
-- **fecha_fin_eurotaxi**: borrar, aporta poca información
-- **fecha**: borrar, aporta poca información
+- **fecha_inicio_eurotaxi**: borrar, aporta poca informacion
+- **fecha_fin_eurotaxi**: borrar, aporta poca informacion
+- **fecha**: borrar, aporta poca informacion
 
 
 codigo: int -> character
@@ -154,17 +154,17 @@ sapply(datos, class)
 
 # 3. Enriquecimiento de datos
 
-Los datos abiertos de Madrid no tienen otras bases de datos de taxis que tengan índices que se puedan cruzar con la base de datos que estamos analizando. 
+Los datos abiertos de Madrid no tienen otras bases de datos de taxis que tengan indices que se puedan cruzar con la base de datos que estamos analizando. 
 
-No hemos encontrado bases de datos abiertas de vehículos de transporte colectivo para poder hacer una comparación con la base de datos de taxis.
+No hemos encontrado bases de datos abiertas de vehiculos de transporte colectivo para poder hacer una comparacion con la base de datos de taxis.
 
 De estar forma, hemos trabajado solo sobre la base de datos de taxis que hemos importado, sin cruzar o comparar con una segunda base de datos.
 
-# 4. Análisis exploratorio
+# 4. Analisis exploratorio
 
-Hemos analizado la distribución de algunas variables de nuestra bases de datos y algunas correlaciones entre variables.
+Hemos analizado la distribucion de algunas variables de nuestra bases de datos y algunas correlaciones entre variables.
 
-## Evolución de los taxis matriculados cada año
+## Evolucion de los taxis matriculados cada ano
 ```{r}
 hist(datos$fecha_matriculacion, 
      breaks = "years", 
@@ -172,12 +172,12 @@ hist(datos$fecha_matriculacion,
      freq = TRUE,
      las = 2,
      col = "lightskyblue2",
-     xlab = "Fecha de matriculación",
+     xlab = "Fecha de matriculacion",
      ylab = "Num vehiculos",
-     main = "Taxis matriculados por año")
+     main = "Taxis matriculados por ano")
 ```
 
-## Evolución del inicio de la actividad de taxis por año
+## Evolucion del inicio de la actividad de taxis por ano
 ```{r}
 hist(datos$fecha_inicio_prestacion, 
      breaks = "years", 
@@ -187,35 +187,35 @@ hist(datos$fecha_inicio_prestacion,
      col = "seagreen3",
      xlab = "Fecha de inicio de servicio",
      ylab = "Num vehiculos",
-     main = " Inicio actividad taxis por año")
+     main = " Inicio actividad taxis por ano")
 ```
 
-Podemos observar que no hay mucha variación entre el histograma anterior y este.
-Es decir, lo lógico es que los taxis sean matriculados e inicien su servicio en el mismo año.
+Podemos observar que no hay mucha variacion entre el histograma anterior y este.
+Es decir, lo logico es que los taxis sean matriculados e inicien su servicio en el mismo ano.
 
-Para comprobarlo, vemos la relación entre la fecha de matriculación y la fecha de inicio de la actividad de taxis.
-Observamos que hay una relación directa entre ambas, con algunos casos cuya fecha de inicio de actividad es superior a la fecha de matriculación
+Para comprobarlo, vemos la relacion entre la fecha de matriculacion y la fecha de inicio de la actividad de taxis.
+Observamos que hay una relacion directa entre ambas, con algunos casos cuya fecha de inicio de actividad es superior a la fecha de matriculacion
 
 ```{r}
 library (ggplot2)
 qplot(datos$fecha_matriculacion, datos$fecha_inicio_prestacion,
-      xlab = "Fecha de matriculación",
+      xlab = "Fecha de matriculacion",
       ylab = "Fecha de inicio de la actividad",
       col = "red",
-      main = "Relación entre fecha de matriculación e inicio de la actividad"
+      main = "Relacion entre fecha de matriculacion e inicio de la actividad"
 )
 ```
 
-## Relación entre potencia y cilindrada según clasificación medioambiental
+## Relacion entre potencia y cilindrada segun clasificacion medioambiental
 Para evitar problemas con datos en blancos, los sustituimos por "0"
 
 ```{r}
 datos$potencia[is.na(datos$potencia)] <- 0
 ```
 
-Se ve una relación directa entre potencia y cilindrada y según estas variables tengan valores más bajos, el nivel de contaminación es menor. 
+Se ve una relacion directa entre potencia y cilindrada y segun estas variables tengan valores mas bajos, el nivel de contaminacion es menor. 
 
-No se puede asumir una relación directa entre los coches con nivel de contaminación 0, una vez que el número de casos que asume este valor es muy reducido y no se pueden sacar conclusiones.
+No se puede asumir una relacion directa entre los coches con nivel de contaminacion 0, una vez que el numero de casos que asume este valor es muy reducido y no se pueden sacar conclusiones.
 
 ```{r}
 ggplot(datos, aes(x = cilindrada, y =potencia, colour = clasificacion_medioambiental)) + geom_point(aes(size = clasificacion_medioambiental))
