@@ -1,5 +1,5 @@
 ---
-title: "Datos históricos de flota de taxis en Madrid"
+title: "Datos historicos de flota de taxis en Madrid"
 author: "Alejandro Vaqueiro, Ester Sánchez, Inês Bolaños, Silvia Lendínez"
 date : 15 febrero 2019
 output:

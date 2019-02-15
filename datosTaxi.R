@@ -1,18 +1,17 @@
-## 1. Obtención de los datos
+## 1. Obtencion de los datos
 
-# Importación de la base de datos *Taxi Flota* de la base de datos abiertos de Madrid, en formato .csv
+# Importacion de la base de datos *Taxi Flota* de la base de datos abiertos de Madrid, en formato .csv
 datos <- read.table("TaxiFlota.csv", sep = ";", header = TRUE, stringsAsFactors = FALSE )
 
 dim(datos) # Vemos la dimension
 head(datos,5) # Mostramos toda la info de los 5 primeros
-tail(datos) # Consultamos los últimos datos
+tail(datos) # Consultamos los ultimos datos
 
 ## 2. Tratamiento y limpieza
 
 ### 1. Renombrar los nombres de las columnas
 
-#### 1.1 Cambiar los títulos a minúsculas
-
+#### 1.1 Cambiar los tItulos a minusculas
 colnames(datos) <- sapply(colnames(datos), tolower) 
 colnames(datos)
 
@@ -25,7 +24,7 @@ colnames(datos)
 colnames(datos) <- iconv(colnames(datos), to='ASCII//TRANSLIT')
 colnames(datos)
 
-#### 1.4. Renombrar manualmente las columnas con nombres más largos
+#### 1.4. Renombrar manualmente las columnas con nombres mas largos
 colnames(datos)[12] <- "numero_plazas"
 colnames(datos)[13] <- "fecha_inicio_prestacion"
 colnames(datos)[15] <- "regimen_eurotaxi"
@@ -77,20 +76,20 @@ datos$Fecha.fin.Regimen.Especial.Eurotaxi <- NULL
 sapply(datos, class)
 
 
-# 4. Análisis exploratorio
+# 4. Analisis exploratorio
 
-# Evolución de los taxis matriculados cada año
+# Evolucion de los taxis matriculados cada ano
 hist(datos$fecha_matriculacion, 
      breaks = "years", 
      format = "%Y", 
      freq = TRUE,
      las = 2,
      col = "lightskyblue2",
-     xlab = "Fecha de matriculación",
+     xlab = "Fecha de matriculacion",
      ylab = "Num vehiculos",
-     main = "Taxis matriculados por año")
+     main = "Evolucion de los taxis matriculados")
 
-# Evolución del inicio del servicio de taxis por año
+# Evolucion del inicio del servicio de taxis 
 hist(datos$fecha_inicio_prestacion, 
      breaks = "years", 
      format = "%Y", 
@@ -99,21 +98,21 @@ hist(datos$fecha_inicio_prestacion,
      col = "seagreen3",
      xlab = "Fecha de inicio de servicio",
      ylab = "Num vehiculos",
-     main = " Inicio actividad taxis por año")
+     main = " Evolucion inicio actividad taxis")
 
-# Relación entre la fecha de matriculación y la fecha de inicio de la actividad de taxis
+# Relacion entre la fecha de matriculacion y la fecha de inicio de la actividad de taxis
 
 library (ggplot2)
   
 qplot(datos$fecha_matriculacion, datos$fecha_inicio_prestacion,
-      xlab = "Fecha de matriculación",
+      xlab = "Fecha de matriculacion",
       ylab = "Fecha de inicio de la actividad",
       col = "red",
-      main = "Relación entre fecha de matriculación e inicio de la actividad"
+      main = "Relacion entre fecha de matriculacion e inicio de la actividad"
 )
 
 
-# Relación entre potencia y cilindrada según clasificación medioambiental
+# Relacion entre potencia y cilindrada segun clasificacion medioambiental
 
 # Para evitar problemas con datos en blancos, los sustituimos por "0"
 datos$potencia[is.na(datos$potencia)] <- 0
